@@ -21,21 +21,47 @@ end
 
 pass2 = pass.clone
 words = []
-lines = File.read(File.dirname(__FILE__) + "/english-words/words.txt").lines
+lines = File.read(File.dirname(__FILE__) + "/words").lines
 until pass2.empty?
-	min_word = nil
+	start = 0
+	best_word = nil
+	best_percent = 0
 	lines.each do |line|
 		word = line.strip.downcase
-		if word.length >= 3 && pass2.start_with?(word) && (min_word.nil? || word.length < min_word.length)
-			min_word = word
+		if word.length <= 2
+			next
+		end
+
+		pass3 = pass2.clone
+		loop do
+			if pass3.length < word.length
+				break
+			end
+			word2 = pass3[0..word.length]
+			equal = 0
+
+			for i in 0...word.length
+				if word[i] == word2[i]
+					equal += 1
+				end
+			end
+
+			percent = equal * 100 / word.length
+
+			if percent > best_percent && percent > 70
+				start = pass2.length - pass3.length
+				best_word = word
+				best_percent = percent
+			end
+			pass3.slice!(0)
 		end
 	end
 
-	if min_word.nil?
-		pass2.slice!(0)
+	if best_word.nil?
+		pass2.slice!(0, start+1)
 	else
-		pass2.slice!(0, min_word.length)
-		words.push(min_word)
+		pass2.slice!(0, start+best_word.length)
+		words.push(best_word)
 	end
 end
 

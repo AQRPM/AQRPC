@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 puts "Ugh, another idiot. Hello. I'm AQRPC. Who are you? Blah blah blah et.c."
 puts "I honestly couldn't care less of who you are. Now enter your fucking password."
 print "Password: "
@@ -21,26 +23,26 @@ pass2 = pass.clone
 words = []
 lines = File.read("/usr/share/dict/words").lines
 until pass2.empty?
-	min_length = nil
+	min_word = nil
 	lines.each do |line|
 		word = line.strip.downcase
-		if word.length > 1 && pass2.start_with?(word) && (min_length.nil? || word.length < min_length)
-			min_length = word.length
+		if word.length >= 3 && pass2.start_with?(word) && (min_word.nil? || word.length < min_word.length)
+			min_word = word
 		end
 	end
 
-	if min_length.nil?
+	if min_word.nil?
 		pass2.slice!(0)
 	else
-		pass2.slice!(0, min_length)
-		words.push(min_length)
+		pass2.slice!(0, min_word.length)
+		words.push(min_word)
 	end
 end
 
-if !words.empty? && pass.length - words.reduce(:+) <= 5
+if !words.empty? && pass.length - words.map{|w| w.length}.reduce(:+) <= 10
 	points += 1
 	puts "So, congratz. You just put " + words.length.to_s + " word" + if words.length == 1 then "" else "s togher" end +
-" and boom,
+" (" + words.join(", ") + ") and boom,
 there's your password. Well, lemme tell you what. DICTIONARY ATTACKS, bitch. Ever heard of it?
 Let me spell it fucking out for you. D-I-C-T-I-O-N-A-R-Y attacks. I can imagine you bragging to your friends
 how good your password is, because you're such a D-I-C-K. One of those 'hackers' you worry to little about
@@ -128,7 +130,7 @@ for i in 0..(pass.length - 3)
 	end
 end
 
-if pattern >= 5 || pass.length - pattern <= 5
+if pattern >= 5 || pass.length / 2 - pattern <= 5
 	points += 1
 	puts "Fantastic bloody work, pal. Just kidding, I'm not your pal. I'm quite happy I don't know you.
 I love how you just stand there. COME ON! Can't you see what's going on? YOUR PASSWORD!

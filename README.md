@@ -49,3 +49,42 @@ In total, you idiot made it up to 3 fucking points.
 By the way, since you were so kind to put an `insult` application in your $PATH, I'll just call that.
 Oh! Apparently, a frightened schoolboy is full of eels
 ```
+
+## What operating systems does this support?
+
+Anything [Ruby](https://www.ruby-lang.org/) supports
+
+## Why the fuck would I choose Ruby?
+
+#### Long answer
+
+What's the fucking alternatives? Let's see:  
+Compiled: Rust, Go, C, D  
+Interpreted/JIT: Python, Lua, Haskell  
+
+The first motherfucking programming/scripting language I learned was Python.  
+And I fucking hate nostalgia. Plus, I don't remember a fucking shit.
+
+Let's remove all the ones I don't know: D, Haskell
+
+Lua is pointless compared to Ruby. **Plus their damned arrays start at 1**. Instant deal-breaker.  
+Go is pointless and slow compared to Rust.  
+C is too dangerous and also way too hecking over-kill and ugly for this supposedly simple task.
+
+That leaves us with Rust.  
+Rust is the fucking best, but it's also over-kill for this freaking task.  
+Plus, Ruby looks a lot like Rust in syntax.
+```Ruby
+for i in 0...10
+    // This is Ruby.
+end
+```
+```Rust
+for i in 0..10 {
+    // This is Rust.
+}
+```
+
+#### Honest answer
+
+Because I'm a too lazy piece of shit to make this son of a bitch in a compiled programming language.

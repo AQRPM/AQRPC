@@ -21,7 +21,7 @@ end
 
 pass2 = pass.clone
 words = []
-lines = File.read("/usr/share/dict/words").lines
+lines = File.read(File.dirname(__FILE__) + "/english-words/words.txt").lines
 until pass2.empty?
 	min_word = nil
 	lines.each do |line|

@@ -58,14 +58,15 @@ Anything [Ruby](https://www.ruby-lang.org/) supports
 
 #### Long answer
 
-What's the fucking alternatives? Let's see:  
-Compiled: Rust, Go, C, D  
+What are the fucking alternatives? Let's see:  
+Compiled: Rust, Go, C  
 Interpreted/JIT: Python, Lua, Haskell  
 
 The first motherfucking programming/scripting language I learned was Python.  
 And I fucking hate nostalgia. Plus, I don't remember a fucking shit.
 
-Let's remove all the ones I don't know: D, Haskell
+I don't think this task suits a powerful functional fucking language,
+so goodbye Haskell.
 
 Lua is pointless compared to Ruby. **Plus their damned arrays start at 1**. Instant deal-breaker.  
 Go is pointless and slow compared to Rust.  

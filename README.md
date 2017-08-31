@@ -59,8 +59,8 @@ Anything [Ruby](https://www.ruby-lang.org/) supports
 #### Long answer
 
 What are the fucking alternatives? Let's see:  
-Compiled: Rust, Go, C  
-Interpreted/JIT: Python, Lua, Haskell  
+Compiled: Rust, Go, C, Haskell  
+Interpreted/JIT: Python, Lua  
 
 The first motherfucking programming/scripting language I learned was Python.  
 And I fucking hate nostalgia. Plus, I don't remember a fucking shit.
@@ -77,7 +77,7 @@ Rust is the fucking best, but it's also over-kill for this freaking task.
 Plus, Ruby looks a lot like Rust in syntax.
 ```Ruby
 for i in 0...10
-    // This is Ruby.
+    # This is Ruby.
 end
 ```
 ```Rust

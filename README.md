@@ -62,14 +62,15 @@ What are the fucking alternatives? Let's see:
 Compiled: Rust, Go, C, Haskell  
 Interpreted/JIT: Python, Lua  
 
-The first motherfucking programming/scripting language I learned was Python.  
-And I fucking hate nostalgia. Plus, I don't remember a fucking shit.
+I have a personal dislike against Python for no reason, so I would
+not code in it unless I have to. Fight me, bruh.
+
+Lua is pointless compared to Ruby. **Plus their damned arrays start at 1**. Instant deal-breaker.  
 
 I don't think this task suits a powerful functional fucking language,
 so goodbye Haskell.
 
-Lua is pointless compared to Ruby. **Plus their damned arrays start at 1**. Instant deal-breaker.  
-Go is pointless and slow compared to Rust.  
+Why not Go? I have no idea.  
 C is too dangerous and also way too hecking over-kill and ugly for this supposedly simple task.
 
 That leaves us with Rust.  

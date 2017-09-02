@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-//  "unicode/utf8"
+    "unicode/utf8"
     "math/rand"
     "time"
     "os/exec"
@@ -42,13 +42,13 @@ Now go away, I am busy trying to insult people that actually make it hard for me
             var best_word string
             var best_percent int
             for _, word := range dictionary {
-                if len(word) <= 2 {
+                if l(word) <= 2 {
                     continue
                 }
 
                 pass3 := pass2
                 for {
-                    if len(pass3) < len(word) {
+                    if l(pass3) < l(word) {
                         break
                     }
 
@@ -61,7 +61,7 @@ Now go away, I am busy trying to insult people that actually make it hard for me
                         }
                     }
 
-                    percent := equal * 100 / len(word)
+                    percent := equal * 100 / l(word)
 
                     if percent > best_percent && percent > 70 {
                         start = len(pass2) - len(pass3)
@@ -77,14 +77,14 @@ Now go away, I am busy trying to insult people that actually make it hard for me
             } else {
                 pass2 = pass2[start+len(best_word):]
                 words = append(words, best_word)
-                words_total_len += len(best_word)
+                words_total_len += l(best_word)
             }
         }
     }
 
 	if len(words) != 0 && len(pass)-words_total_len <= 10 {
 		complain(`So, congratz. You just put ` + str(len(words)) + ` word` + ternary(len(words) == 1, "", "s together") +
-			`(` + strings.Join(words, `, `) + `) and boom,
+			` (` + strings.Join(words, `, `) + `) and boom,
 there's your password. Well, lemme tell you what. DICTIONARY ATTACKS, bitch. Ever heard of it?
 Let me spell it fucking out for you. D-I-C-T-I-O-N-A-R-Y attacks. I can imagine you bragging to your friends
 how good your password is, because you're such a D-I-C-K. One of those 'hackers' you worry to little about
@@ -94,8 +94,8 @@ make it lowercase, and match with your password. Did you notice how slow it was?
 It's a matter of minutes before somebody cracks your password. Do you still think you're a genius?`)
 	}
 
-	if len(pass) <= 8 {
-		length := str(len(pass))
+	if l(pass) <= 8 {
+		length := str(l(pass))
 		complain(`Let's mention how much your password sucks.
 It's ` + length + ` characters. __` + length + `_fucking_characters__.
 You know what's 8 characters? 'horrible'. That and anything with smaller length SUCKS.
@@ -155,8 +155,9 @@ If somebody tries to brute force you, they will get away with a really small dic
 	}
 
 	if symbolic <= 5 {
-		complain(ternary(unique_sucks, `Y`, `Adding to that, y`) + `ou literally have only ` + str(symbolic) + ` symbol` +
-			ternary(symbolic == 1, ``, `s`) + `
+		complain(ternary(unique_sucks, `Adding to that, y`, `Y`) + `ou literally have only ` + str(symbolic) +
+            ` fucking symbol` +
+			ternary(symbolic == 1, ``, `s`) + `.
 If somebody tries to brute force you, they will probably get away with the most basic dictionary.` +
 			ternary(unique_sucks, ``, dictionary_explanation))
 	}
@@ -171,7 +172,7 @@ If somebody tries to brute force you, they will probably get away with the most 
         }
     }
 
-    if pattern >= 5 || len(pass) / 2 - pattern <= 5 {
+    if pattern >= 5 || l(pass) / 2 - pattern <= 5 {
         complain(`Fantastic bloody work, pal. Just kidding, I'm not your pal. I'm quite happy I don't know you.
 I love how you just stand there. COME ON! Can't you see what's going on? YOUR PASSWORD!
 IT'S HAS A PATTERN. You're so damn ignorant, it's fantastic. It might not even take a robot to crack this.
@@ -219,9 +220,9 @@ func complain(reason string) {
 	points += 1
 	fmt.Println(reason + "\n") // extra newline
 }
-// func l(str string) int {
-//     return utf8.RuneCountInString(str)
-// }
+func l(str string) int {
+    return utf8.RuneCountInString(str)
+}
 func str(i int) string {
 	return strconv.Itoa(i)
 }

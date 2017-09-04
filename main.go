@@ -42,26 +42,28 @@ Now go away, I am busy trying to insult people that actually make it hard for me
             var best_word string
             var best_percent int
             for _, word := range dictionary {
+                word = strings.ToLower(word)
                 if l(word) <= 2 {
                     continue
                 }
 
                 pass3 := pass2
-                for {
-                    if l(pass3) < l(word) {
+                for i := 0; i < 3; i += 1 {
+                    if len(pass3) < len(word) {
                         break
                     }
 
-                    word2 := pass3[0:len(word)]
+                    word1 := []rune(word)
+                    word2 := []rune(pass3[0:len(word1)])
                     equal := 0
 
-                    for i := range word {
-                        if word[i] == word2[i] {
+                    for i := range word1 {
+                        if word1[i] == word2[i] {
                             equal += 1
                         }
                     }
 
-                    percent := equal * 100 / l(word)
+                    percent := equal * 100 / len(word1)
 
                     if percent > best_percent && percent > 70 {
                         start = len(pass2) - len(pass3)
@@ -165,14 +167,14 @@ If somebody tries to brute force you, they will probably get away with the most 
     var pattern int
     {
         pass2 := []rune(pass)
-        for i := 0; i < len(pass2) - 3; i += 1 {
-            if pass[i+1] + (pass[i+1] - pass[i]) == pass[i+2] {
+        for i := 0; i < len(pass2) - 2; i += 1 {
+            if pass2[i+1] + (pass2[i+1] - pass2[i]) == pass2[i+2] {
                 pattern += 1
             }
         }
     }
 
-    if pattern >= 5 || l(pass) / 2 - pattern <= 5 {
+    if pattern >= 5 || len(pass) / 2 - pattern <= 5 {
         complain(`Fantastic bloody work, pal. Just kidding, I'm not your pal. I'm quite happy I don't know you.
 I love how you just stand there. COME ON! Can't you see what's going on? YOUR PASSWORD!
 IT'S HAS A PATTERN. You're so damn ignorant, it's fantastic. It might not even take a robot to crack this.

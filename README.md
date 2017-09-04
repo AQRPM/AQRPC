@@ -13,12 +13,11 @@ I'd make you fear the day you chose a bad motherfucking password.
 
 So let's fucking do it. Here's an example:
 ```
-$ ./AQRPC.rb
+$ ./AQRPC
 Ugh, another idiot. Hello. I'm AQRPC. Who are you? Blah blah blah et.c.
 I honestly couldn't care less of who you are. Now enter your fucking password.
-Password: StarW4rzFan@12345
-
-So, congratz. You just put 2 words togher (star, fan) and boom,
+Password: StarW4rsFan@12345
+So, congratz. You just put 3 words together (star, wars, fan) and boom,
 there's your password. Well, lemme tell you what. DICTIONARY ATTACKS, bitch. Ever heard of it?
 Let me spell it fucking out for you. D-I-C-T-I-O-N-A-R-Y attacks. I can imagine you bragging to your friends
 how good your password is, because you're such a D-I-C-K. One of those 'hackers' you worry to little about
@@ -43,9 +42,4 @@ Seriously, that's all. I'm not going to insult you until you're done.
 I'm waiting...
 Change your passwords. Because I doubt somebody as stupid as you use a password manager. Go change your bloody passwords.
 DO IT.
-
-In total, you idiot made it up to 3 fucking points.
-
-By the way, since you were so kind to put an `insult` application in your $PATH, I'll just call that.
-Oh! Apparently, a frightened schoolboy is full of eels
 ```

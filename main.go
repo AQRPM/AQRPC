@@ -1,46 +1,46 @@
 package main
 
 import (
-	"fmt"
-	"strconv"
-	"strings"
-    "unicode/utf8"
+    "fmt"
     "math/rand"
-    "time"
     "os/exec"
+    "strconv"
+    "strings"
+    "time"
+    "unicode/utf8"
 
-	"github.com/jD91mZM2/stdutil"
+    "github.com/jD91mZM2/stdutil"
 )
 
-var points int = 0
+var points int
 
 func main() {
     rand.Seed(time.Now().UnixNano())
 
-	fmt.Println("Ugh, another idiot. Hello. I'm AQRPC. Who are you? Blah blah blah et.c.")
-	fmt.Println("I honestly couldn't care less of who you are. Now enter your fucking password.")
-	fmt.Print("Password: ")
+    fmt.Println("Ugh, another idiot. Hello. I'm AQRPC. Who are you? Blah blah blah et.c.")
+    fmt.Println("I honestly couldn't care less of who you are. Now enter your fucking password.")
+    fmt.Print("Password: ")
 
-	pass := stdutil.MustScanLower()
-	fmt.Println()
+    pass := stdutil.MustScanLower()
+    fmt.Println()
 
-	if pass == "password" {
-		complain(`Oh come on, now you're just trying to make me insult your fucking ass.
+    if pass == "password" {
+        complain(`Oh come on, now you're just trying to make me insult your fucking ass.
 Couldn't be less obvious. If you really did think that was a good password you'd at least get the record
 for being the most stupid person in the whole wide word, fucker. "Nobody am going to guess that", right? "Lol got em".
 Well, lemme tell you what sunshine. Humans don't guess passwords. Machines do. They're just gonna loop through the most
 used passwords, and boom, they're in your account in less than a few seconds. Was that really that great of an idea?
 Now go away, I am busy trying to insult people that actually make it hard for me to insult them. Ugh.`)
-	}
+    }
 
     var words []string
-    var words_total_len int
+    var wordsTotalLen int
     {
         pass2 := pass
         for len(pass2) > 0 {
             var start int
-            var best_word string
-            var best_percent int
+            var bestWord string
+            var bestPercent int
             for _, word := range dictionary {
                 word = strings.ToLower(word)
                 if l(word) <= 2 {
@@ -65,28 +65,28 @@ Now go away, I am busy trying to insult people that actually make it hard for me
 
                     percent := equal * 100 / len(word1)
 
-                    if percent > best_percent && percent > 70 {
+                    if percent > bestPercent && percent > 70 {
                         start = len(pass2) - len(pass3)
-                        best_word = word
-                        best_percent = percent
+                        bestWord = word
+                        bestPercent = percent
                     }
                     pass3 = pass3[1:]
                 }
             }
 
-            if len(best_word) == 0 {
+            if len(bestWord) == 0 {
                 pass2 = pass2[1:]
             } else {
-                pass2 = pass2[start+len(best_word):]
-                words = append(words, best_word)
-                words_total_len += l(best_word)
+                pass2 = pass2[start+len(bestWord):]
+                words = append(words, bestWord)
+                wordsTotalLen += l(bestWord)
             }
         }
     }
 
-	if len(words) != 0 && len(pass)-words_total_len <= 10 {
-		complain(`So, congratz. You just put ` + str(len(words)) + ` word` + ternary(len(words) == 1, "", "s together") +
-			` (` + strings.Join(words, `, `) + `) and boom,
+    if len(words) != 0 && len(pass)-wordsTotalLen <= 10 {
+        complain(`So, congratz. You just put ` + str(len(words)) + ` word` + ternary(len(words) == 1, "", "s together") +
+            ` (` + strings.Join(words, `, `) + `) and boom,
 there's your password. Well, lemme tell you what. DICTIONARY ATTACKS, bitch. Ever heard of it?
 Let me spell it fucking out for you. D-I-C-T-I-O-N-A-R-Y attacks. I can imagine you bragging to your friends
 how good your password is, because you're such a D-I-C-K. One of those 'hackers' you worry to little about
@@ -94,11 +94,11 @@ can just loop through words and put them together and boom they got your passwor
 Notice how fast it was to detect this your password is so bad? I had to loop through the entire list of English words,
 make it lowercase, and match with your password. Did you notice how slow it was? No? Exactly.
 It's a matter of minutes before somebody cracks your password. Do you still think you're a genius?`)
-	}
+    }
 
-	if l(pass) <= 8 {
-		length := str(l(pass))
-		complain(`Let's mention how much your password sucks.
+    if l(pass) <= 8 {
+        length := str(l(pass))
+        complain(`Let's mention how much your password sucks.
 It's ` + length + ` characters. __` + length + `_fucking_characters__.
 You know what's 8 characters? 'horrible'. That and anything with smaller length SUCKS.
 You can count, right? I bet you can't, but if you can... Realize this: You can count with characters.
@@ -107,31 +107,31 @@ Now imagine a computer simply counting a, b, c. And when it hits the end it just
 Until it finds your motherfucking password. You know, I really hope your computer screen shows your reflection.
 Wanna know why? Becaue you should really take a long look at yourself. How worthless you are.
 You can't even come up with a secure password. Good day.`)
-	}
+    }
 
-	var numeric int
-	var symbolic int
-	var unique []rune
+    var numeric int
+    var symbolic int
+    var unique []rune
 
 outer:
-	for _, c := range pass {
-		for _, c2 := range unique {
-			if c == c2 {
-				continue outer
-			}
-		}
-		unique = append(unique, c)
+    for _, c := range pass {
+        if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') {
+        } else if c >= '0' && c <= '9' {
+            numeric += 1
+        } else {
+            symbolic += 1
+        }
 
-		if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') {
-		} else if c >= '0' && c <= '9' {
-			numeric += 1
-		} else {
-			symbolic += 1
-		}
-	}
+        for _, c2 := range unique {
+            if c == c2 {
+                continue outer
+            }
+        }
+        unique = append(unique, c)
+    }
 
-	if len(pass)-numeric <= 3 {
-		complain(`Has anybody ever told you that you're funny? Because you are. No, not when you're trying to be.
+    if l(pass)-numeric <= l(pass)/2 {
+        complain(`Has anybody ever told you that you're funny? Because you are. No, not when you're trying to be.
 You're just naturally talented at being funny when you didn't mean to.
 It's also known as 'stupidity'.
 Your password is mostly numeric. It's almost like you tried putting your phone number in.
@@ -141,40 +141,40 @@ Which is why putting anything even remotely guessable is stupid.
 And not only that. Every single wannabe programmer at least knows how to make a computer count.
 It's harder to count with letters, but counting with numbers is REALLY easy.
 And you just made yourself so vulnerable. Congratulations you idiot.`)
-	}
+    }
 
-	dictionary_explanation := `
+    dictionaryExplanation := `
 And since you're so stupid you probably don't know what I mean by dictionary: I mean the amount of characters it has to try.
 The less passwords it has to try, the faster. You'll lose your fucking account in no time.
 But then again, if this is the best you can come up with, perhaps you deserve it.`
 
-	unique_sucks := len(unique) <= 10
-	if unique_sucks {
-		complain(`I took every character in your password. And then I filtered out duplicates. You know what I saw?
+    uniqueSucks := len(unique) <= 10
+    if uniqueSucks {
+        complain(`I took every character in your password. And then I filtered out duplicates. You know what I saw?
 Your password only has ` + str(len(unique)) + ` unique fucking character` + ternary(len(unique) == 1, ``, `s`) + `.
 Did you really think this through? Oh wait, I forgot you didn't have a brain. Well that explains things.
-If somebody tries to brute force you, they will get away with a really small dictionary.` + dictionary_explanation)
-	}
+If somebody tries to brute force you, they will get away with a really small dictionary.` + dictionaryExplanation)
+    }
 
-	if symbolic <= 5 {
-		complain(ternary(unique_sucks, `Adding to that, y`, `Y`) + `ou literally have only ` + str(symbolic) +
+    if symbolic <= 5 {
+        complain(ternary(uniqueSucks, `Adding to that, y`, `Y`) + `ou literally have only ` + str(symbolic) +
             ` fucking symbol` +
-			ternary(symbolic == 1, ``, `s`) + `.
+            ternary(symbolic == 1, ``, `s`) + `.
 If somebody tries to brute force you, they will probably get away with the most basic dictionary.` +
-			ternary(unique_sucks, ``, dictionary_explanation))
-	}
+            ternary(uniqueSucks, ``, dictionaryExplanation))
+    }
 
     var pattern int
     {
         pass2 := []rune(pass)
-        for i := 0; i < len(pass2) - 2; i += 1 {
-            if pass2[i+1] + (pass2[i+1] - pass2[i]) == pass2[i+2] {
+        for i := 0; i < len(pass2)-2; i += 1 {
+            if pass2[i+1]+(pass2[i+1]-pass2[i]) == pass2[i+2] {
                 pattern += 1
             }
         }
     }
 
-    if pattern >= 5 || len(pass) / 2 - pattern <= 5 {
+    if pattern >= 5 || l(pass)/2-pattern <= 5 {
         complain(`Fantastic bloody work, pal. Just kidding, I'm not your pal. I'm quite happy I don't know you.
 I love how you just stand there. COME ON! Can't you see what's going on? YOUR PASSWORD!
 IT'S HAS A PATTERN. You're so damn ignorant, it's fantastic. It might not even take a robot to crack this.
@@ -203,7 +203,7 @@ No worries, you're still fucking stupid, I'm sure.`)
 
         out, err := exec.Command(path).Output()
         if err != nil {
-            stdutil.PrintErr("Nevermind, you got out real lucky there. Something went wrong. Idiot.", nil);
+            stdutil.PrintErr("Nevermind, you got out real lucky there. Something went wrong. Idiot.", nil)
         } else {
             fmt.Println("Oh! Apparently, " + string(out))
         }
@@ -219,19 +219,18 @@ https://github.com/AQRPM/AQRPM`)
 }
 
 func complain(reason string) {
-	points += 1
-	fmt.Println(reason + "\n") // extra newline
+    points += 1
+    fmt.Println(reason + "\n") // extra newline
 }
 func l(str string) int {
     return utf8.RuneCountInString(str)
 }
 func str(i int) string {
-	return strconv.Itoa(i)
+    return strconv.Itoa(i)
 }
 func ternary(condition bool, str1 string, str2 string) string {
-	if condition {
-		return str1
-	} else {
-		return str2
-	}
+    if condition {
+        return str1
+    }
+    return str2
 }
